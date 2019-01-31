@@ -20,7 +20,7 @@ for(var k in interface){
     }
 }
 var HOST = ipdinamic
-var PORT =8081
+var PORT = process.env.PORT || 5000;
 
 server.listen(PORT, function(){
     console.log('Servidor ON en el port '+PORT+':'+HOST)
