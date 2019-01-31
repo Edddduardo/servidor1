@@ -4,9 +4,22 @@ const net = require('net')
 const server = require('http').Server(app)
 const socket = require('socket.io')(server)
 const {StringDecoder} = require('string_decoder')
-const decoder = new StringDecoder('utf8')
+const os = require('os')
 
-var HOST = "192.168.43.194"
+const decoder = new StringDecoder('utf8')
+var interface = os.networkInterfaces();
+var ipdinamic
+for(var k in interface){
+    for(var k2 in interface[k]){
+        var address = interface [k][k2]
+        if(address.family=='IPv4' && !address.internal ){
+            ipdinamic= address.address.toString();
+            console.log(ipdinamic)
+            
+        }
+    }
+}
+var HOST = ipdinamic
 var PORT =8081
 
 server.listen(PORT, function(){
