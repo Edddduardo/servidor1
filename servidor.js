@@ -17,8 +17,8 @@ for(var k in interface){
   }
 }
 
-var HOST = "127.0.0.1"
-var PORT = process.env.PORT || 5000;
+var HOST = ipDimanic
+var PORT = process.env.PORT || 4000;
 
   server.listen(PORT, function(){
       console.log('servidor activo ' + HOST + ':' + PORT)
