@@ -1,37 +1,44 @@
-const express = require('express')
+var express = require('express')
 var aplicacion = express()
-const os = require('os')
-var interface = os.networkInterfaces()
-const net = require('net')
+const os = require('os');
+const net = require('net');
 const server = require('http').Server(aplicacion)
 const socket = require('socket.io')(server)
-const {StringDecoder} =  require('string_decoder')
-const decoder = new StringDecoder('utf8')
-var ipDimanic;
+const {StringDecoder} = require('string_decoder')
+const decoder = new  StringDecoder('utf8')
+
+var interface = os.networkInterfaces();
+var ipDinamic;
 for(var k in interface){
-  for(var k2 in interface[k]){
-    var address = interface[k][k2]
-    if(address.family = "IPv4" && !address.internal){
-      ipDimanic = address.address.toString()
+    for(var k2 in interface[k]){
+        var address = interface[k][k2]
+        if(address.family == 'IPv4' && !address.internal ){
+            ipDinamic = address.address.toString();
+            console.log(ipDinamic);
+        }
     }
-  }
 }
 
-var HOST = ipDimanic
-var PORT = process.env.PORT || 4000;
+var HOST = ipDinamic;
 
-  server.listen(PORT, function(){
-      console.log('servidor activo ' + HOST + ':' + PORT)
-  })
+var PORT = server.listen(process.env.PORT || 3000);
+
 
 var ser = net.createServer(function(so){
-    console.log('Usuario Nuevo ' + so.remoteAddress + ':' + so.remotePort)    
+ 
+    
+    console.log('Usuario Conectado Servidor 1:' + so.remoteAddress + ':' + so.remotePort)
+
+
+    
     so.on('data', function(data){
-        console.log(decoder.write(data))
+        var cent = data 
+        console.log(decoder.write(cent))
     })
-    so.on('close', function(){
-      
+
+    so.on('close',function(){
+        console.log('Usuario Desconectado Servidor 1')
     })
 })
 
-ser.listen(PORT, HOST)
+ser.listen(PORT, HOST);
